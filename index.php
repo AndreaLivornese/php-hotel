@@ -40,9 +40,16 @@ $hotels = [
 
 ];
 
-?>
+$hotelFilter=[];
 
-<!DOCTYPE html>
+
+?>
+<?php 
+
+
+
+
+echo '<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,8 +62,9 @@ $hotels = [
 </head>
 <body>
 
+<div class="container">
 
-<table class="table">
+<table class="table mb-5">
   <thead>
     <tr>
       <th scope="col">Nome</th>
@@ -66,11 +74,128 @@ $hotels = [
       <th scope="col">Distanza dal centro</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody>';
 
-  <?php 
+   
   
   foreach($hotels as $hotel){
+    echo "
+
+    <tr>";
+
+    foreach($hotel as $key => $value){
+
+        echo "
+
+            <td>";
+
+                // controllo se il parcheggio sia presente o meno e visualizzo la risposta personalizzata.
+                if($key == "parking"){
+
+                    if($value == true){
+                        echo "Si";
+
+                    }else{
+                        echo "No";
+                    };
+                }else{
+                    echo $value;
+                };
+
+                
+            echo "</td>
+        
+        ";
+
+
+    };
+
+
+    echo "</tr>
+
+
+    ";
+
+
+
+  };
+  
+  
+
+ echo '</tbody>
+</table>
+
+
+<hr class="mb-5">
+
+
+<form action="">
+
+<div class="col-4">
+
+    <div>
+    <input class="form-check-input" type="checkbox" value="true" name="parking" id="parking">
+    <label class="form-check-label" for="parking">
+        Hanno il parcheggio
+    </label>
+
+    <input type="number" name="vote" class="form-control mb-2" placeholder="inserisci il voto dell\'hotel (1 a 5)">
+
+    <div>
+        <input type="submit" class="btn btn-dark  " value="Filtra">
+    </div>
+
+</div>
+
+</div>
+
+</form>';
+
+
+if(isset($_GET['parking']) || isset($_GET['vote'])){
+
+   if($_GET['parking'] && $_GET['vote'] != ''){
+
+    foreach($hotels as $hotel){
+        if($_GET['parking'] == $hotel['parking'] && $_GET['vote'] == $hotel['vote']){
+            $hotelFilter[] = $hotel;
+        };
+    }
+
+   }else if($_GET['parking']){
+        foreach($hotels as $hotel){
+
+            if($_GET['parking'] == $hotel['parking']){
+                $hotelFilter[] = $hotel;
+            }
+        }
+   }else if($_GET['vote'] != ''){
+
+        foreach($hotels as $hotel){
+
+            if($_GET['vote'] == $hotel['vote']){
+                $hotelFilter[] = $hotel;
+            }
+        }
+
+   };
+
+  echo' 
+  <table class="table mb-5">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Descrizione</th>
+      <th scope="col">Parcheggio</th>
+      <th scope="col">Voto</th>
+      <th scope="col">Distanza dal centro</th>
+    </tr>
+  </thead>
+  <tbody>';
+
+   
+  
+  foreach($hotelFilter as $hotel){
     echo "
 
     <tr>";
@@ -112,19 +237,26 @@ $hotels = [
 
 
 
-  }
+  };
   
-  ?>
+  
 
-    <tr>
-      <td scope="row"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
+ echo '
+ </tbody>
 </table>
+
+
+</div>';
+
+   
+
+}
+
+?>
+
+
+
+
     
 <!-- bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
