@@ -160,7 +160,7 @@ if(isset($_GET['parking']) || isset($_GET['vote'])){
    if($_GET['parking'] && $_GET['vote'] != ''){
 
     foreach($hotels as $hotel){
-        if($_GET['parking'] == $hotel['parking'] && $_GET['vote'] == $hotel['vote']){
+        if($_GET['parking'] == $hotel['parking'] && $hotel['vote'] >= $_GET['vote']){
             $hotelFilter[] = $hotel;
         };
     }
@@ -176,7 +176,7 @@ if(isset($_GET['parking']) || isset($_GET['vote'])){
 
         foreach($hotels as $hotel){
 
-            if($_GET['vote'] == $hotel['vote']){
+            if($hotel['vote'] >= $_GET['vote']){
                 $hotelFilter[] = $hotel;
             }
         }
