@@ -64,6 +64,9 @@ echo '<!DOCTYPE html>
 
 <div class="container">
 
+<h1 class="text-center mb-2">Cerca il tuo Hotel</h1>
+<h4 class="text-center mb-5">Visualizza la tabella di tutti gli hotels o filtra in base alle tue esigenze</h4>
+
 <table class="table mb-5">
   <thead>
     <tr>
